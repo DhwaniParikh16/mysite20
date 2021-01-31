@@ -1,0 +1,34 @@
+{% extends 'myapp/base.html' %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block body_block %}
+    {% if request.session.last_login %}
+        <p>{{ request.session.last_login }}</p>
+        <ul>
+            <li class="hbar1"><a href="{% url 'myapp:myorders' %}">MyOrders</a></li>
+        </ul>
+    {% else %}
+        <p>The last login was more than one hour ago</p>
+    {% endif %}
+    {% if top_list %}
+        <h2>List of Topics</h2>
+        <ol>
+            {% for top in top_list %}
+                <li><a href="{% url 'myapp:detail' top.id %}">{{ top.name }}</a></li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <strong>There are no available topics!</strong>
+    {% endif %}
+{% endblock %}
+
+{% block links %}
+    <ul>
+        <li class="hbar1"><a href="{% url 'myapp:findcourses' %}">Search Courses</a></li>
+        <li class="hbar1"><a href="{% url 'myapp:place_order' %}">Place Order</a></li>
+        <li class="hbar1"><a href="{% url 'myapp:about' %}">About Us</a></li>
+    </ul>
+{% endblock %}
